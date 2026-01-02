@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduLog • Empower Educate Elevate</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="data:application/manifest+json,{}">
+  <meta name="theme-color" content="#6366f1">
+</head>
+<body class="login-page">
+  <div class="overlay"></div>
+
+  <nav id="mainNav">
+    <h2>EduLog • Empower • Educate • Elevate</h2>
+    <div id="navLinks">
+      <button onclick="showSection('home')">Home</button>
+      <button onclick="showSection('login')">Login</button>
+      <button onclick="showSection('about')">About</button>
+    </div>
+  </nav>
+
+  <div id="auth-flow">
+    <section id="home" class="page">
+      <h1>Empowering Rural Futures</h1>
+      <p>AI-powered platform nurturing women's education, rural scholarships, and career guidance for India's next generation engineers and leaders.</p>
+    </section>
+
+    <section id="about" class="page hidden">
+      <h1>About EduLog</h1>
+      <p>Hackathon prototype by Space Seekers: Video peer-learning, habit trackers, 100+ govt links, interactive careers for Andhra Pradesh students.</p>
+    </section>
+
+    <section id="login" class="page hidden">
+      <h1>Secure Login</h1>
+      <input id="loginEmail" placeholder="Email" aria-label="Email">
+      <input id="loginPhone" placeholder="Phone" aria-label="Phone">
+      <button onclick="login()">Login</button>
+      <p id="loginMsg"></p>
+      <p class="switch">New? <span onclick="showSection('signup')">Sign Up</span></p>
+    </section>
+
+    <section id="signup" class="page hidden">
+      <h1>Join EduLog</h1>
+      <input id="signupName" placeholder="Full Name" aria-label="Name">
+      <input id="signupEmail" placeholder="Email" aria-label="Email">
+      <input id="signupPhone" placeholder="Phone" aria-label="Phone">
+      <button onclick="signup()">Sign Up</button>
+      <p id="signupMsg"></p>
+    </section>
+
+    <section id="profile" class="page hidden">
+      <h1>Dashboard Access</h1>
+      <div class="profile-card">
+        <p><b>Name:</b> <span id="pName"></span></p>
+        <p><b>Email:</b> <span id="pEmail"></span></p>
+        <p><b>Phone:</b> <span id="pPhone"></span></p>
+        <button onclick="enterHub()" class="hub-btn">🚀 Enter EduLog Hub</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="dashboard" class="hidden">
+    <header class="top-header">
+      <h1>EduLog Learning Hub</h1>
+      <button onclick="logout()" class="back-btn">Logout</button>
+    </header>
+
+    <main class="four-sections-row">
+      <!-- LEARN -->
+      <section class="card glass">
+        <h2>📚 Peer Learn</h2>
+        <p>Upload 5-10min videos: Java tips, OS scheduling, probability tricks. Community revision library.</p>
+        <form id="uploadForm">
+          <input type="file" id="videoFile" accept="video/*" required>
+          <button type="submit">Upload Video</button>
+        </form>
+        <div id="videoList" class="video-list"></div>
+      </section>
+
+      <!-- STUDY HABITS -->
+      <section class="card glass">
+        <h2>🧠 Study Habits</h2>
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="weaknesses">Weaknesses </button>
+          <button class="tab-btn" data-tab="strengths">Strengths</button>
+        </div>
+
+        <!-- Weaknesses -->
+        <div id="weaknesses" class="tab-content active">
+          <ul class="habit-list">
+            <li onclick="showHabitDetail('laziness')">Laziness</li>
+            <li onclick="showHabitDetail('procrastination')">Procrastination</li>
+            <li onclick="showHabitDetail('distraction')">Distractions</li>
+            <li onclick="showHabitDetail('multitasking')">Multitasking</li>
+            <li onclick="showHabitDetail('cramming')">Cramming</li>
+            <li onclick="showHabitDetail('noPlan')">No Plan</li>
+            <li onclick="showHabitDetail('perfectionism')">Perfectionism</li>
+            <li onclick="showHabitDetail('sleep')">Sleep Deprivation</li>
+            <li onclick="showHabitDetail('notes')">Poor Notes</li>
+            <li onclick="showHabitDetail('mindset')">Negative Mindset</li>
+          </ul>
+          <div id="weakness-detail" class="habit-detail"></div>
+        </div>
+
+        <!-- Strengths -->
+        <div id="strengths" class="tab-content">
+          <ul class="habit-list">
+            <li onclick="showStrengthDetail('time')">Time Management</li>
+            <li onclick="showStrengthDetail('consistency')">Consistency</li>
+            <li onclick="showStrengthDetail('focus')">Deep Focus</li>
+            <li onclick="showStrengthDetail('active')">Active Recall</li>
+            <li onclick="showStrengthDetail('health')">Health Habits</li>
+            <li onclick="showStrengthDetail('reflection')">Reflection</li>
+            <li onclick="showStrengthDetail('pomodoro')">Pomodoro</li>
+            <li onclick="showStrengthDetail('mapping')">Mind Mapping</li>
+            <li onclick="showStrengthDetail('group')">Group Study</li>
+            <li onclick="showStrengthDetail('spaced')">Spaced Repetition</li>
+          </ul>
+          <div id="strength-detail" class="habit-detail"></div>
+        </div>
+      </section>
+
+      <!-- RURAL EDUCATION -->
+      <section class="card glass">
+        <h2>🌾 Rural Resources</h2>
+        <div class="accordion">
+          <button class="acc-btn">Scholarships</button>
+          <div class="acc-panel">
+            <ul class="link-list">
+              <li><a href="https://scholarships.gov.in/" target="_blank">National Scholarship Portal</a> <span>One-stop for all NSP schemes</span></li>
+              <li><a href="https://scholarships.gov.in/All-Scholarships" target="_blank">All Active Scholarships</a></li>
+              <li><a href="https://www.sbiashascholarship.co.in" target="_blank">SBI Asha Scholarship</a> <span>₹15k-20L, 50% girls/SC-ST</span></li>
+              <li><a href="https://www.scholarships.reliancefoundation.org/" target="_blank">Reliance UG Scholarship</a> <span>₹2L + mentorship</span></li>
+              <li><a href="https://scholarlify.com/s/PRAGATI25" target="_blank">AICTE Pragati (Girls)</a> <span>₹50k technical degrees</span></li>
+            </ul>
+          </div>
+          <button class="acc-btn">Govt Courses</button>
+          <div class="acc-panel">
+            <ul class="link-list">
+              <li><a href="https://swayam.gov.in/" target="_blank">SWAYAM Free Courses</a></li>
+              <li><a href="https://diksha.gov.in/" target="_blank">DIKSHA School Platform</a></li>
+              <li><a href="https://www.nios.ac.in/" target="_blank">NIOS Open Schooling</a></li>
+              <li><a href="https://nptel.ac.in/" target="_blank">NPTEL Engineering</a></li>
+              <li><a href="https://ugcnet.nta.nic.in/" target="_blank">UGC NET Exams</a></li>
+            </ul>
+          </div>
+          <button class="acc-btn">Girls Empowerment </button>
+          <div class="acc-panel">
+            <ul class="link-list">
+              <li><a href="https://scholarships.gov.in/" target="_blank">NSP Girl Scholarships</a></li>
+              <li><a href="https://www.aicte-india.org/schemes/students-development-schemes" target="_blank">Pragati Scholarship</a></li>
+             <li><a href="https://sharanfoundation.in/women-empowerment/" target="_blank">Sharan Foundation – Women Empowerment Activities</a></li>
+              <li><a href="https://willowfoundation.org.in/women-empowerment" target="_blank">Willow Foundation – Women Empowerment</a></li>
+              <li><a href="https://www.actionaidindia.org/women-empowerment" target="_blank">ActionAid India – Women Empowerment</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CAREER -->
+      <section class="card glass">
+        <h2>🎯 Career Map</h2>
+        <div class="career-levels">
+          <button onclick="openCareerModal('after10')">After 10th</button>
+          <button onclick="openCareerModal('after12')">After 12th</button>
+          <button onclick="openCareerModal('afterDegree')">After Degree</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="careerModal" class="modal">
+    <div class="modal-content glass">
+      <span class="close" onclick="closeCareerModal()">&times;</span>
+      <div id="careerModalBody"></div>
+      <button class="back-btn" onclick="careerBack()">← Back</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
